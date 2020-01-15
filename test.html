@@ -6,26 +6,57 @@
 </head>
 <body>
 <h1>hello world</h1>
+
+<h1>hello world</h1>
+
 <script>
-    var ajax = new XMLHttpRequest();
-    var method = "GET";
-    var url = "retrieve.php";
-    var asynchronous = true;
+    // var array = [];
+    // function objDemo(id, name)
+    // {
+    //     this.coordinate = id;
+    //     this.name = name;
+    // }
+    // array.push(new objDemo("jason", 20));
+    // array.push(new objDemo("tst1", 10));
+    // array.push(new objDemo("tst2", 12));
+    // array.push(new objDemo("tst3", 13));
+    //
+    // console.log(array);
+    //
+    //
+    //
+    // console.log(array[0]==={coordinate: "jason", name: 20});
+    //
 
-    ajax.open(method, url, asynchronous);
+    var array2 = [];
+    array2.push({lat: -41.2867093, lng: 174.7684929});
+    array2.push({lat: -41.2867093, lng: 174.7684929});
+    array2.push({lat: -41.2867093, lng: 174.7684929});
+    array2.push({lat: -41.2867093, lng: 174.7684929});
 
-    ajax.send();
+    console.log(array2.length);
 
-    ajax.onreadystatechange = function()
-    {
-        // if(this.readyState == 4 && this.status == 200){
-            console.log("test");
-            var data = JSON.parse(this.responseText);
-            console.log(data);
-            alert(data)
-        // }
-    };
+    console.log(array2[0]);
+
+    function obj(lat, lng){
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    var arr = [];
+    arr.push(new obj(array2[0].lat, array2[0].lng));
+    arr.push(new obj(array2[1].lat, array2[1].lng));
+    arr.push(new obj(array2[2].lat, array2[2].lng));
+    arr.push(new obj(array2[3].lat, array2[3].lng));
+
+    console.log(arr);
+    console.log(arr[0]);
+
+
+
 </script>
+
+
 
 
 

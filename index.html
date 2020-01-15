@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>My Google Map</h1>
-            <div id="map">
+            <div id="map" style="height: 1000px; width:1000px" >
 
 
             </div>
@@ -83,142 +83,277 @@
 </div>
 
 
+<!--<script>-->
+<!--    var ajax = new XMLHttpRequest();-->
+<!--    var method = "GET";-->
+<!--    var url = "retrieve.php";-->
+<!--    var asynchronous = true;-->
+
+<!--    ajax.open(method, url, asynchronous);-->
+
+<!--    ajax.send();-->
+
+<!--    ajax.onreadystatechange = function()-->
+<!--    {-->
+<!--        // if(this.readyState == 4 && this.status == 200){-->
+<!--            var data = JSON.parse(this.responseText);-->
+<!--            console.log(data);-->
+<!--            alert(data)-->
+<!--        // }-->
+<!--    };-->
+<!--</script>-->
+
+<!--<script async defer-->
+<!--        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo-->
+<!--&callback=initMap"></script>-->
+
 <script>
-    var ajax = new XMLHttpRequest();
-    var method = "GET";
-    var url = "retrieve.php";
-    var asynchronous = true;
+    var response = '';
 
-    ajax.open(method, url, asynchronous);
+    console.log(response);
 
-    ajax.send();
+    function getMapData(){
+        console.log("------TEST-------");
+        $.ajax({
+            type: 'POST',
+            url: 'retrieve.php',
+            async: false,
+            // dataType: 'json',
+            success: function(text){
+                console.log(text);
+                response = JSON.parse(text);
+                console.log("done");
+            }
+        });
+        // alert(response[0])
+    }
 
-    ajax.onreadystatechange = function()
-    {
-        // if(this.readyState == 4 && this.status == 200){
-            var data = JSON.parse(this.responseText);
-            console.log(data);
-            alert(data)
-        // }
-    };
-</script>
+    getMapData();
 
 
-<script>
-
-    // var ajax = new XMLHttpRequest();
-    // var method = "GET";
-    // var url = "retrieve.php";
-    // var asynchronous = true;
+    // var geocoder = new google.maps.Geocoder();
+    // var address = "new york";
     //
-    // ajax.open(method, url, asynchronous);
+    // geocoder.geocode( { 'address': address}, function(results, status) {
     //
-    // ajax.send();
-    //
-    // ajax.onreadystatechange = function()
-    // {
-    //     if(this.readyState == 4 && this.status == 200){
-    //         var data = JSON.parse(this.responseText);
-    //         console.log(data);
-    //         alert(data)
+    //     if (status == google.maps.GeocoderStatus.OK) {
+    //         var latitude = results[0].geometry.location.lat();
+    //         var longitude = results[0].geometry.location.lng();
+    //         alert(latitude);
     //     }
-    // };
+    // });
 
 
 
-
-
-
-    /*-----------*/
-    // var response = '';
     //
-    // console.log(response);
+    // function initMap() {
     //
-    // function getMapData(){
-    //     // var response = '';
-    //     console.log("------TEST-------");
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'retrieve.php',
-    //         async: false,
-    //         dataType: 'json',
-    //         success: function(text){
-    //             console.log("not done");
-    //             console.log(text);
-    //             response = JSON.parse(text);
-    //             console.log(typeof(response));
-    //             console.log(response);
-    //             console.log("done");
-    //             console.log(response.address);
-    //         }
+    //     var myLatLng = {lat: latitude, lng: longitude};
+    //
+    //     var map = new google.maps.Map(document.getElementById('map'), {
+    //         zoom: 4,
+    //         center: myLatLng
     //     });
-    //     console.log("TTTT");
-    //     alert(response)
+    //
+    //     var marker = new google.maps.Marker({
+    //         position: myLatLng,
+    //         map: map,
+    //         title: 'Hello World!'
+    //     });
     // }
-
-    // getMapData();
-
 
 
 
     function initMap(){
-        //Map options
-        var options = {
-            zoom:13,
-            center:{lat: -41.2867093, lng: 174.7684929}
-        };
 
+        //----------------
 
-        //New map
-        var map = new google.maps.Map(document.getElementById('map'), options);
-        /* //-----------------
-        //Add marker
-        var marker = new google.maps.Marker({
-            position:{lat: -41.2932391, lng: 174.7782353},
-            map: map,
-            //Customer icon
-            icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-        })
+        console.log("initMap start");
+        var coodList =[];
 
-        var infoWindow = new google.maps.InfoWindow({
-            content: '<h1> Terrible LandLord</h1>'
-        });
+        console.log(response.length);
 
-        marker.addListener('click', function () {
-            infoWindow.open(map, marker);
-        })
-        //------------------*/
-
-        //Retrieve data from php
+        var geocoder = new google.maps.Geocoder();
 
 
 
-
-
-
-
-
-        // Array of markers
-        var markers = [{
-            coords:{lat: -41.2932391, lng: 174.7782353},
-            content: "test1",
-            iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-        },
-            {
-            coords:{lat:  -41.284067, lng: 174.7273995},
-            content: "test1",
-            // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-            },
-            {
-            coords:{lat:  -41.284067, lng: 174.7273995},
-            content: "test1",
-                    // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                }
-        ];
-
-        for(var i = 0; i< markers.length; i++){
-            addMarker(markers[i])
+        function myLatLngObj(lat,lng)
+        {
+            this.lat = lat;
+            this.lng = lng;
         }
+
+        function getCoodList(){
+            console.log("getCoodList start");
+            for(var i = 0; i<response.length; i++)
+            {
+                // console.log(i + "loop for coodlist");
+                // console.log(response[i].address);
+                var myLatLng = "";
+
+                geocoder.geocode( { 'address':response[i].address}, function(results, status) {
+
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latitude = results[0].geometry.location.lat();
+                        var longitude = results[0].geometry.location.lng();
+                    }
+
+                    console.log(latitude);
+                    console.log("^^^^^^^^^^^^^^^^^^^^^");
+                    console.log(longitude);
+
+                    // myLatLng = {lat: latitude, lng: longitude};
+
+                    coodList.push(new myLatLngObj(latitude, longitude));
+
+                    console.log("print mylatlng");
+                    console.log(coodList.length);
+
+
+                    // console.log(typeof(response[0]));
+                    // coodList.push(myLatLng);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: myLatLng,
+                    //     map: map,
+                    //     title: 'Hello World!'
+                    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+            }
+        }
+
+        getCoodList();
+
+
+        console.log("-------");
+        console.log(coodList.length);
+        // console.log(coodList[Object.keys()[0]]);
+        console.log("########");
+
+        //-----------------
+
+
+
+
+
+        //-----------------------------------
+        // function renderOnMap()
+        // {
+            // if(getCoodList.ready)
+            // {
+                //Map options
+                var options = {
+                    zoom:13,
+                    center:{lat: -41.2867093, lng: 174.7684929}
+                };
+
+
+                //New map
+                var map = new google.maps.Map(document.getElementById('map'), options);
+                /* //-----------------
+                //Add marker
+                var marker = new google.maps.Marker({
+                    position:{lat: -41.2932391, lng: 174.7782353},
+                    map: map,
+                    //Customer icon
+                    icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                })
+
+                var infoWindow = new google.maps.InfoWindow({
+                    content: '<h1> Terrible LandLord</h1>'
+                });
+
+                marker.addListener('click', function () {
+                    infoWindow.open(map, marker);
+                })
+                //------------------*/
+
+                //Retrieve data from php
+
+
+
+
+
+
+
+
+                // Array of markers
+
+
+
+                // var markers = [];
+                //
+                // function makerObj(index)
+                // {
+                //     this.coords = coodList[index];
+                //     this.content = "Address: " + response[index].address + "<br>" +
+                //         "Detail: "+response[index].casedetail + "<br>" +
+                //         "MiseryIndex: "+response[index].miseryIndex;
+                // }
+                //
+                // for(var i = 0; i < coodList.length; i++)
+                // {
+                //     console.log("try...");
+                //     markers.push(new makerObj(i));
+                //     console.log("success");
+                // }
+                //
+                // console.log("+++++++");
+                // console.log(markers.length);
+
+
+
+
+                console.log("*&*#*&^$*&$");
+
+                console.log("*&*#*&^$*&$");
+                var markers = [{
+                    coords:coodList[0],
+                    content: "Address: " + response[0].address + "<br>" +
+                        "Detail: "+response[0].casedetail + "<br>" +
+                        "MiseryIndex: "+response[0].miseryIndex,
+
+                    iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                },
+                    {
+                        coords:coodList[1],
+                        content: "test1",
+                        // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                    },
+                    {
+                        coords:coodList[2],
+                        content: "test1",
+                        // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                    }
+                ];
+
+                for(var i = 0; i< markers.length; i++){
+                    addMarker(markers[i])
+                }
+            // }
+            // else
+            // {
+            //     setTimeout(renderOnMap(),100);
+            // }
+
+        // }
+
+        // renderOnMap();
+
+        //-----------------------------------
 
 
 
@@ -266,6 +401,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo
 &callback=initMap"
 async defer></script>
+
+
 </body>
 
 <footer class="footer">

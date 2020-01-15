@@ -35,6 +35,9 @@
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
+    font-family: "Andale Mono";
+    /*it is not working*/
+    /*height: 200px;*/
 }
 
 .overlay{
@@ -89,6 +92,7 @@ footer .copyright{
 
 /*Map*/
 #map{
-    height: 400px;
+    height: 1000px;
     width: 100%
 }
+

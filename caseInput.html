@@ -12,12 +12,52 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/formSheet.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <meta charset="UTF-8">
     <title>NewCase</title>
 </head>
+
 <body>
-    <form action="insert.php" method="post">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary" id="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            Home
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-4">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="title">
+    <h2>Fill your form detail</h2>
+</div>
+
+
+    <form action="insert.php" method="post" id="form">
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="inputEmail4">Email</label>
@@ -90,4 +130,8 @@
 </form>
 
 </body>
+
+
+
+
 </html>

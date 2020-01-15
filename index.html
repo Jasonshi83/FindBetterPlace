@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-<!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
-<!--            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
-<!--            crossorigin="anonymous"></script>-->
     <script
             src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -46,7 +42,7 @@
                     <a class="nav-link " href="#">Team</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Post</a>
+                    <a class="nav-link " href="caseInput.html">Post Case</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">Contact</a>
@@ -56,16 +52,20 @@
     </div>
 </nav>
 
-<header class="header">
+<header class="header" style="height: 500px;">
     <div class="overlay"></div>
         <div class="container">
             <div class="description">
-                <h3>
-                    Welcome to Website
+                <h1 >
+                    Welcome, we try to help you find a better place to live in wellington.
+                    <br>
                     <p>
-                        To be added later.</p>
-                    <button class="btn btn-outline-secondary">See more</button>
-                </h3>
+                        This website provides information about bad experience on house rental, check the marked points on the below map, those are the places people already complained.
+                        <br>
+                        People may provide very hash comment about their experience, their experience is only for your information.
+                    </p>
+                    <button class="btn btn-outline-secondary" onclick="window.location.href='caseInput.html'">Share My Experience</button>
+                </h1>
             </div>
         </div>
 </header>
@@ -73,9 +73,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>My Google Map</h1>
-            <div id="map" style="height: 1000px; width:1000px" >
+            <h1>City Map <button type="button" class="btn btn-primary" onclick="getCoodList()">Show All Bad Experience</button>
 
+            </h1>
+            <div id="map" style="height: 800px; width: 100%" >
 
             </div>
         </div>
@@ -103,12 +104,12 @@
 <!--    };-->
 <!--</script>-->
 
-<!--<script async defer-->
-<!--        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo-->
-<!--&callback=initMap"></script>-->
+
 
 <script>
     var response = '';
+    var coodList =[];
+    var markers = [];
 
     console.log(response);
 
@@ -162,85 +163,114 @@
     //     });
     // }
 
+    function myLatLngObj(lat,lng)
+    {
+        this.lat = lat;
+        this.lng = lng;
+    }
+
+    function getCoodList(){
+        console.log("getCoodList start");
+        var geocoder= new google.maps.Geocoder();
+        for(var i = 0; i<response.length; i++)
+        {
+            // console.log(i + "loop for coodlist");
+            // console.log(response[i].address);
+
+            geocoder.geocode( { 'address':response[i].address}, function(results, status) {
+
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                }
+
+                console.log(latitude);
+                console.log("^^^^^^^^^^^^^^^^^^^^^");
+                console.log(longitude);
+
+                // myLatLng = {lat: latitude, lng: longitude};
+
+                coodList.push(new myLatLngObj(latitude, longitude));
+
+                console.log("print mylatlng");
+                console.log(coodList.length);
+
+
+                // console.log(typeof(response[0]));
+                // coodList.push(myLatLng);
+
+                // var marker = new google.maps.Marker({
+                //     position: myLatLng,
+                //     map: map,
+                //     title: 'Hello World!'
+                // });
+            });
+        }
+        initMap();
+    }
+
+    console.log("_+_+_+_+");
+    // getCoodList();
+
 
 
     function initMap(){
 
-        //----------------
-
         console.log("initMap start");
-        var coodList =[];
 
         console.log(response.length);
 
-        var geocoder = new google.maps.Geocoder();
-
-
-
-        function myLatLngObj(lat,lng)
-        {
-            this.lat = lat;
-            this.lng = lng;
-        }
-
-        function getCoodList(){
-            console.log("getCoodList start");
-            for(var i = 0; i<response.length; i++)
-            {
-                // console.log(i + "loop for coodlist");
-                // console.log(response[i].address);
-                var myLatLng = "";
-
-                geocoder.geocode( { 'address':response[i].address}, function(results, status) {
-
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        var latitude = results[0].geometry.location.lat();
-                        var longitude = results[0].geometry.location.lng();
-                    }
-
-                    console.log(latitude);
-                    console.log("^^^^^^^^^^^^^^^^^^^^^");
-                    console.log(longitude);
-
-                    // myLatLng = {lat: latitude, lng: longitude};
-
-                    coodList.push(new myLatLngObj(latitude, longitude));
-
-                    console.log("print mylatlng");
-                    console.log(coodList.length);
-
-
-                    // console.log(typeof(response[0]));
-                    // coodList.push(myLatLng);
-
-                    // var marker = new google.maps.Marker({
-                    //     position: myLatLng,
-                    //     map: map,
-                    //     title: 'Hello World!'
-                    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-                });
-            }
-        }
-
-        getCoodList();
+        // var geocoder = new google.maps.Geocoder();
+        //
+        // function myLatLngObj(lat,lng)
+        // {
+        //     this.lat = lat;
+        //     this.lng = lng;
+        // }
+        //
+        // function getCoodList(){
+        //     console.log("getCoodList start");
+        //     for(var i = 0; i<response.length; i++)
+        //     {
+        //         // console.log(i + "loop for coodlist");
+        //         // console.log(response[i].address);
+        //
+        //         geocoder.geocode( { 'address':response[i].address}, function(results, status) {
+        //
+        //             if (status == google.maps.GeocoderStatus.OK) {
+        //                 var latitude = results[0].geometry.location.lat();
+        //                 var longitude = results[0].geometry.location.lng();
+        //             }
+        //
+        //             console.log(latitude);
+        //             console.log("^^^^^^^^^^^^^^^^^^^^^");
+        //             console.log(longitude);
+        //
+        //             // myLatLng = {lat: latitude, lng: longitude};
+        //
+        //             coodList.push(new myLatLngObj(latitude, longitude));
+        //
+        //             console.log("print mylatlng");
+        //             console.log(coodList.length);
+        //
+        //
+        //             // console.log(typeof(response[0]));
+        //             // coodList.push(myLatLng);
+        //
+        //             // var marker = new google.maps.Marker({
+        //             //     position: myLatLng,
+        //             //     map: map,
+        //             //     title: 'Hello World!'
+        //             // });
+        //         });
+        //     }
+        // }
+        //
+        // getCoodList();
 
 
         console.log("-------");
         console.log(coodList.length);
-        // console.log(coodList[Object.keys()[0]]);
         console.log("########");
 
         //-----------------
@@ -296,23 +326,23 @@
 
                 // var markers = [];
                 //
-                // function makerObj(index)
-                // {
-                //     this.coords = coodList[index];
-                //     this.content = "Address: " + response[index].address + "<br>" +
-                //         "Detail: "+response[index].casedetail + "<br>" +
-                //         "MiseryIndex: "+response[index].miseryIndex;
-                // }
-                //
-                // for(var i = 0; i < coodList.length; i++)
-                // {
-                //     console.log("try...");
-                //     markers.push(new makerObj(i));
-                //     console.log("success");
-                // }
-                //
-                // console.log("+++++++");
-                // console.log(markers.length);
+                function makerObj(index)
+                {
+                    this.coords = coodList[index];
+                    this.content = "Address: " + response[index].address + "<br>" +
+                        "Detail: "+response[index].casedetail + "<br>" +
+                        "MiseryIndex: "+response[index].miseryIndex;
+                }
+
+                for(var i = 0; i < coodList.length; i++)
+                {
+                    console.log("try...");
+                    markers.push(new makerObj(i));
+                    console.log("success");
+                }
+
+                console.log("+++++++");
+                console.log(markers.length);
 
 
 
@@ -320,29 +350,33 @@
                 console.log("*&*#*&^$*&$");
 
                 console.log("*&*#*&^$*&$");
-                var markers = [{
-                    coords:coodList[0],
-                    content: "Address: " + response[0].address + "<br>" +
-                        "Detail: "+response[0].casedetail + "<br>" +
-                        "MiseryIndex: "+response[0].miseryIndex,
 
-                    iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                },
-                    {
-                        coords:coodList[1],
-                        content: "test1",
-                        // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                    },
-                    {
-                        coords:coodList[2],
-                        content: "test1",
-                        // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                    }
-                ];
+                // var markers = [{
+                //     coords:coodList[0],
+                //     content: "Address: " + response[0].address + "<br>" +
+                //         "Detail: "+response[0].casedetail + "<br>" +
+                //         "MiseryIndex: "+response[0].miseryIndex,
+                //
+                //     iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                // },
+                //     {
+                //         coords:coodList[1],
+                //         content: "test1",
+                //         // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                //     },
+                //     {
+                //         coords:coodList[2],
+                //         content: "test1",
+                //         // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                //     }
+                // ];
+
 
                 for(var i = 0; i< markers.length; i++){
                     addMarker(markers[i])
+
                 }
+
             // }
             // else
             // {
@@ -398,27 +432,79 @@
 </script>
 
 
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo
 &callback=initMap"
-async defer></script>
+        async defer></script>
 
 
 </body>
 
-<footer class="footer">
-    <div class="container footer-wrap">
+<footer class="page-footer font-small blue pt-4">
+
+    <div class="container-fluid text-center text-md-left">
+
         <div class="row">
-            <div class="col-lg-4 lg-md-4 col-sm-12 align-self-center">
-                <h1>hello1</h1>
+
+            <div class="col-md-6 mt-md-0 mt-3">
+
+                <h5 class="text-uppercase">FIND A BETTER PLACE TO LIVE</h5>
+                <p>This Website is for people who wants to live in Wellington, information is only for reference</p>
+
             </div>
-            <div class="col-lg-8 lg-md-8 col-sm-12">
-                <h1>hello2</h1>
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <div class="col-md-3 mb-md-0 mb-3">
+
+                <h5 class="text-uppercase">More Information</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!">View All Cases</a>
+                    </li>
+                    <li>
+                        <a href="#!">Report Iusses</a>
+                    </li>
+                    <li>
+                        <a href="#!">Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="#!">Know More About Us</a>
+                    </li>
+                </ul>
+
             </div>
+            <div class="col-md-3 mb-md-0 mb-3">
+
+                <!-- Links -->
+                <h5 class="text-uppercase">Follow Us</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!"></a>
+                    </li>
+                    <li>
+                        <a href="#!">Twitter</a>
+                    </li>
+                    <li>
+                        <a href="#!">Facebook</a>
+                    </li>
+                    <li>
+                        <a href="#!">LinkedIn 4</a>
+                    </li>
+                </ul>
+
+            </div>
+
         </div>
-        <div class="copyright">
-            Copyright © 2020
-        </div>
+
     </div>
+
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/"> AboringAI.com</a>
+    </div>
+
 </footer>
 
 <script type="text/javascript" src='js/main.js'></script>

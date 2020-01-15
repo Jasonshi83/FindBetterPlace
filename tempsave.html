@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"-->
+    <!--            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+    <!--            crossorigin="anonymous"></script>-->
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <meta charset="UTF-8">
+    <title>FindBetterPlace</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-primary" id="navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            Home
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-4">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Team</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="header">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="description">
+            <h3>
+                Welcome to Website
+                <p>
+                    To be added later.</p>
+                <button class="btn btn-outline-secondary">See more</button>
+            </h3>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>My Google Map</h1>
+            <div id="map" style="height: 1000px; width:1000px" >
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script>-->
+<!--    var ajax = new XMLHttpRequest();-->
+<!--    var method = "GET";-->
+<!--    var url = "retrieve.php";-->
+<!--    var asynchronous = true;-->
+
+<!--    ajax.open(method, url, asynchronous);-->
+
+<!--    ajax.send();-->
+
+<!--    ajax.onreadystatechange = function()-->
+<!--    {-->
+<!--        // if(this.readyState == 4 && this.status == 200){-->
+<!--            var data = JSON.parse(this.responseText);-->
+<!--            console.log(data);-->
+<!--            alert(data)-->
+<!--        // }-->
+<!--    };-->
+<!--</script>-->
+
+<!--<script async defer-->
+<!--        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo-->
+<!--&callback=initMap"></script>-->
+
+<script>
+    var response = '';
+
+    console.log(response);
+
+    function getMapData(){
+        console.log("------TEST-------");
+        $.ajax({
+            type: 'POST',
+            url: 'retrieve.php',
+            async: false,
+            // dataType: 'json',
+            success: function(text){
+                console.log(text);
+                response = JSON.parse(text);
+                console.log("done");
+            }
+        });
+        // alert(response[0])
+    }
+
+    getMapData();
+
+
+    // var geocoder = new google.maps.Geocoder();
+    // var address = "new york";
+    //
+    // geocoder.geocode( { 'address': address}, function(results, status) {
+    //
+    //     if (status == google.maps.GeocoderStatus.OK) {
+    //         var latitude = results[0].geometry.location.lat();
+    //         var longitude = results[0].geometry.location.lng();
+    //         alert(latitude);
+    //     }
+    // });
+
+
+
+    //
+    // function initMap() {
+    //
+    //     var myLatLng = {lat: latitude, lng: longitude};
+    //
+    //     var map = new google.maps.Map(document.getElementById('map'), {
+    //         zoom: 4,
+    //         center: myLatLng
+    //     });
+    //
+    //     var marker = new google.maps.Marker({
+    //         position: myLatLng,
+    //         map: map,
+    //         title: 'Hello World!'
+    //     });
+    // }
+
+
+
+    function initMap(){
+
+        //----------------
+
+        console.log("initMap start");
+        var coodList =[];
+
+        console.log(response.length);
+
+        var geocoder = new google.maps.Geocoder();
+
+
+
+        function myLatLngObj(lat,lng)
+        {
+            this.lat = lat;
+            this.lng = lng;
+        }
+
+        function getCoodList(){
+            console.log("getCoodList start");
+            for(var i = 0; i<response.length; i++)
+            {
+                // console.log(i + "loop for coodlist");
+                // console.log(response[i].address);
+                var myLatLng = "";
+
+                geocoder.geocode( { 'address':response[i].address}, function(results, status) {
+
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latitude = results[0].geometry.location.lat();
+                        var longitude = results[0].geometry.location.lng();
+                    }
+
+                    console.log(latitude);
+                    console.log("^^^^^^^^^^^^^^^^^^^^^");
+                    console.log(longitude);
+
+                    // myLatLng = {lat: latitude, lng: longitude};
+
+                    coodList.push(new myLatLngObj(latitude, longitude));
+
+                    console.log("print mylatlng");
+                    console.log(coodList.length);
+
+
+                    // console.log(typeof(response[0]));
+                    // coodList.push(myLatLng);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: myLatLng,
+                    //     map: map,
+                    //     title: 'Hello World!'
+                    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+                });
+            }
+        }
+
+        getCoodList();
+
+
+        console.log("-------");
+        console.log(coodList.length);
+        // console.log(coodList[Object.keys()[0]]);
+        console.log("########");
+
+        //-----------------
+
+
+
+
+
+        //-----------------------------------
+        // function renderOnMap()
+        // {
+        // if(getCoodList.ready)
+        // {
+        //Map options
+        var options = {
+            zoom:13,
+            center:{lat: -41.2867093, lng: 174.7684929}
+        };
+
+
+        //New map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+        /* //-----------------
+        //Add marker
+        var marker = new google.maps.Marker({
+            position:{lat: -41.2932391, lng: 174.7782353},
+            map: map,
+            //Customer icon
+            icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        })
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: '<h1> Terrible LandLord</h1>'
+        });
+
+        marker.addListener('click', function () {
+            infoWindow.open(map, marker);
+        })
+        //------------------*/
+
+        //Retrieve data from php
+
+
+
+
+
+
+
+
+        // Array of markers
+
+
+
+        // var markers = [];
+        //
+        // function makerObj(index)
+        // {
+        //     this.coords = coodList[index];
+        //     this.content = "Address: " + response[index].address + "<br>" +
+        //         "Detail: "+response[index].casedetail + "<br>" +
+        //         "MiseryIndex: "+response[index].miseryIndex;
+        // }
+        //
+        // for(var i = 0; i < coodList.length; i++)
+        // {
+        //     console.log("try...");
+        //     markers.push(new makerObj(i));
+        //     console.log("success");
+        // }
+        //
+        // console.log("+++++++");
+        // console.log(markers.length);
+
+
+
+
+        console.log("*&*#*&^$*&$");
+
+        console.log("*&*#*&^$*&$");
+        var markers = [{
+            coords:coodList[0],
+            content: "Address: " + response[0].address + "<br>" +
+                "Detail: "+response[0].casedetail + "<br>" +
+                "MiseryIndex: "+response[0].miseryIndex,
+
+            iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        },
+            {
+                coords:coodList[1],
+                content: "test1",
+                // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+            },
+            {
+                coords:coodList[2],
+                content: "test1",
+                // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+            }
+        ];
+
+        for(var i = 0; i< markers.length; i++){
+            addMarker(markers[i])
+        }
+        // }
+        // else
+        // {
+        //     setTimeout(renderOnMap(),100);
+        // }
+
+        // }
+
+        // renderOnMap();
+
+        //-----------------------------------
+
+
+
+        // // Add Coords to Function
+        //  addMarker({
+        //      coords:{lat: -41.2932391, lng: 174.7782353},
+        //      content: "test1",
+        //      iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        //  });
+        //  addMarker({
+        //      coords:{lat:  -41.284067, lng: 174.7273995},
+        //      content: "test1",
+        //      // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        //  });
+
+
+        // Add Marker Function
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                //Customer icon
+                // icon: props.iconImage
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: '<h6>' + props.content + '</h6>'
+            });
+
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+
+            // Check for customicon
+            if(props.iconImage){
+                // set icon image
+                marker.setIcon(props.iconImage)
+            }
+        }
+
+    }
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs3vxgxkjSJPQrWLos58EWNL1jMH48Kfo
+&callback=initMap"
+        async defer></script>
+
+
+</body>
+
+<footer class="footer">
+    <div class="container footer-wrap">
+        <div class="row">
+            <div class="col-lg-4 lg-md-4 col-sm-12 align-self-center">
+                <h1>hello1</h1>
+            </div>
+            <div class="col-lg-8 lg-md-8 col-sm-12">
+                <h1>hello2</h1>
+            </div>
+        </div>
+        <div class="copyright">
+            Copyright © 2020
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src='js/main.js'></script>
+
+</html>

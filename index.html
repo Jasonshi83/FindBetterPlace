@@ -11,6 +11,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -36,7 +38,7 @@
                     <a class="nav-link" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#">Portfolio</a>
+                    <a class="nav-link " href="caseTable.php">View All Cases</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="#">Team</a>
@@ -56,7 +58,7 @@
     <div class="overlay"></div>
         <div class="container">
             <div class="description">
-                <h1 >
+                <h1>
                     Welcome, we try to help you find a better place to live in wellington.
                     <br>
                     <p>
@@ -73,7 +75,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>City Map <button type="button" class="btn btn-primary" onclick="getCoodList()">Show All Bad Experience</button>
+            <h1 id="cityMap">City Map <button type="button" class="btn btn-primary" onclick="getCoodList()">Show All Bad Experience</button>
 
             </h1>
             <div id="map" style="height: 800px; width: 100%" >
@@ -82,29 +84,6 @@
         </div>
     </div>
 </div>
-
-
-<!--<script>-->
-<!--    var ajax = new XMLHttpRequest();-->
-<!--    var method = "GET";-->
-<!--    var url = "retrieve.php";-->
-<!--    var asynchronous = true;-->
-
-<!--    ajax.open(method, url, asynchronous);-->
-
-<!--    ajax.send();-->
-
-<!--    ajax.onreadystatechange = function()-->
-<!--    {-->
-<!--        // if(this.readyState == 4 && this.status == 200){-->
-<!--            var data = JSON.parse(this.responseText);-->
-<!--            console.log(data);-->
-<!--            alert(data)-->
-<!--        // }-->
-<!--    };-->
-<!--</script>-->
-
-
 
 <script>
     var response = '';
@@ -119,49 +98,15 @@
             type: 'POST',
             url: 'retrieve.php',
             async: false,
-            // dataType: 'json',
             success: function(text){
                 console.log(text);
                 response = JSON.parse(text);
                 console.log("done");
             }
         });
-        // alert(response[0])
     }
 
     getMapData();
-
-
-    // var geocoder = new google.maps.Geocoder();
-    // var address = "new york";
-    //
-    // geocoder.geocode( { 'address': address}, function(results, status) {
-    //
-    //     if (status == google.maps.GeocoderStatus.OK) {
-    //         var latitude = results[0].geometry.location.lat();
-    //         var longitude = results[0].geometry.location.lng();
-    //         alert(latitude);
-    //     }
-    // });
-
-
-
-    //
-    // function initMap() {
-    //
-    //     var myLatLng = {lat: latitude, lng: longitude};
-    //
-    //     var map = new google.maps.Map(document.getElementById('map'), {
-    //         zoom: 4,
-    //         center: myLatLng
-    //     });
-    //
-    //     var marker = new google.maps.Marker({
-    //         position: myLatLng,
-    //         map: map,
-    //         title: 'Hello World!'
-    //     });
-    // }
 
     function myLatLngObj(lat,lng)
     {
@@ -174,9 +119,6 @@
         var geocoder= new google.maps.Geocoder();
         for(var i = 0; i<response.length; i++)
         {
-            // console.log(i + "loop for coodlist");
-            // console.log(response[i].address);
-
             geocoder.geocode( { 'address':response[i].address}, function(results, status) {
 
                 if (status == google.maps.GeocoderStatus.OK) {
@@ -188,30 +130,16 @@
                 console.log("^^^^^^^^^^^^^^^^^^^^^");
                 console.log(longitude);
 
-                // myLatLng = {lat: latitude, lng: longitude};
 
                 coodList.push(new myLatLngObj(latitude, longitude));
 
                 console.log("print mylatlng");
                 console.log(coodList.length);
 
-
-                // console.log(typeof(response[0]));
-                // coodList.push(myLatLng);
-
-                // var marker = new google.maps.Marker({
-                //     position: myLatLng,
-                //     map: map,
-                //     title: 'Hello World!'
-                // });
             });
         }
         initMap();
     }
-
-    console.log("_+_+_+_+");
-    // getCoodList();
-
 
 
     function initMap(){
@@ -220,188 +148,59 @@
 
         console.log(response.length);
 
-        // var geocoder = new google.maps.Geocoder();
-        //
-        // function myLatLngObj(lat,lng)
-        // {
-        //     this.lat = lat;
-        //     this.lng = lng;
-        // }
-        //
-        // function getCoodList(){
-        //     console.log("getCoodList start");
-        //     for(var i = 0; i<response.length; i++)
-        //     {
-        //         // console.log(i + "loop for coodlist");
-        //         // console.log(response[i].address);
-        //
-        //         geocoder.geocode( { 'address':response[i].address}, function(results, status) {
-        //
-        //             if (status == google.maps.GeocoderStatus.OK) {
-        //                 var latitude = results[0].geometry.location.lat();
-        //                 var longitude = results[0].geometry.location.lng();
-        //             }
-        //
-        //             console.log(latitude);
-        //             console.log("^^^^^^^^^^^^^^^^^^^^^");
-        //             console.log(longitude);
-        //
-        //             // myLatLng = {lat: latitude, lng: longitude};
-        //
-        //             coodList.push(new myLatLngObj(latitude, longitude));
-        //
-        //             console.log("print mylatlng");
-        //             console.log(coodList.length);
-        //
-        //
-        //             // console.log(typeof(response[0]));
-        //             // coodList.push(myLatLng);
-        //
-        //             // var marker = new google.maps.Marker({
-        //             //     position: myLatLng,
-        //             //     map: map,
-        //             //     title: 'Hello World!'
-        //             // });
-        //         });
-        //     }
-        // }
-        //
-        // getCoodList();
+
 
 
         console.log("-------");
         console.log(coodList.length);
         console.log("########");
 
-        //-----------------
+
+        var options = {
+            zoom:13,
+            center:{lat: -41.2867093, lng: 174.7684929}
+        };
+
+
+        //New map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+
+        function makerObj(index)
+        {
+            this.coords = coodList[index];
+            this.content = "Address: " + response[index].address + "<br>" +
+                "Detail: "+response[index].casedetail + "<br>" +
+                "MiseryIndex: "+response[index].miseryIndex;
+        }
+
+        for(var i = 0; i < coodList.length; i++)
+        {
+            console.log("try...");
+            markers.push(new makerObj(i));
+            console.log("success");
+        }
+
+        console.log("+++++++");
+        console.log(markers.length);
+
+
+
+
+        console.log("*&*#*&^$*&$");
+
+        console.log("*&*#*&^$*&$");
+
+
+
+        for(var i = 0; i< markers.length; i++){
+            addMarker(markers[i])
+
+        }
 
 
 
 
 
-        //-----------------------------------
-        // function renderOnMap()
-        // {
-            // if(getCoodList.ready)
-            // {
-                //Map options
-                var options = {
-                    zoom:13,
-                    center:{lat: -41.2867093, lng: 174.7684929}
-                };
-
-
-                //New map
-                var map = new google.maps.Map(document.getElementById('map'), options);
-                /* //-----------------
-                //Add marker
-                var marker = new google.maps.Marker({
-                    position:{lat: -41.2932391, lng: 174.7782353},
-                    map: map,
-                    //Customer icon
-                    icon:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                })
-
-                var infoWindow = new google.maps.InfoWindow({
-                    content: '<h1> Terrible LandLord</h1>'
-                });
-
-                marker.addListener('click', function () {
-                    infoWindow.open(map, marker);
-                })
-                //------------------*/
-
-                //Retrieve data from php
-
-
-
-
-
-
-
-
-                // Array of markers
-
-
-
-                // var markers = [];
-                //
-                function makerObj(index)
-                {
-                    this.coords = coodList[index];
-                    this.content = "Address: " + response[index].address + "<br>" +
-                        "Detail: "+response[index].casedetail + "<br>" +
-                        "MiseryIndex: "+response[index].miseryIndex;
-                }
-
-                for(var i = 0; i < coodList.length; i++)
-                {
-                    console.log("try...");
-                    markers.push(new makerObj(i));
-                    console.log("success");
-                }
-
-                console.log("+++++++");
-                console.log(markers.length);
-
-
-
-
-                console.log("*&*#*&^$*&$");
-
-                console.log("*&*#*&^$*&$");
-
-                // var markers = [{
-                //     coords:coodList[0],
-                //     content: "Address: " + response[0].address + "<br>" +
-                //         "Detail: "+response[0].casedetail + "<br>" +
-                //         "MiseryIndex: "+response[0].miseryIndex,
-                //
-                //     iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                // },
-                //     {
-                //         coords:coodList[1],
-                //         content: "test1",
-                //         // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                //     },
-                //     {
-                //         coords:coodList[2],
-                //         content: "test1",
-                //         // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                //     }
-                // ];
-
-
-                for(var i = 0; i< markers.length; i++){
-                    addMarker(markers[i])
-
-                }
-
-            // }
-            // else
-            // {
-            //     setTimeout(renderOnMap(),100);
-            // }
-
-        // }
-
-        // renderOnMap();
-
-        //-----------------------------------
-
-
-
-       // // Add Coords to Function
-       //  addMarker({
-       //      coords:{lat: -41.2932391, lng: 174.7782353},
-       //      content: "test1",
-       //      iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-       //  });
-       //  addMarker({
-       //      coords:{lat:  -41.284067, lng: 174.7273995},
-       //      content: "test1",
-       //      // iconImage:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-       //  });
 
 
         // Add Marker Function
@@ -491,7 +290,7 @@
                         <a href="#!">Facebook</a>
                     </li>
                     <li>
-                        <a href="#!">LinkedIn 4</a>
+                        <a href="#!">LinkedIn</a>
                     </li>
                 </ul>
 

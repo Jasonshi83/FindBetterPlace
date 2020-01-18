@@ -39,6 +39,6 @@ The website is tested by printing out the JSON file then compare with the data i
 Software tools used:
 PHPStorm, DataGrip, WebStorm, Apache HTTP Server.
 
-
+![alt text](https://github.com/Jasonshi83/FindBetterPlace/blob/master/Main_ViewAllCases.gif)
 
 

@@ -35,7 +35,7 @@
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
-    font-family: "Andale Mono";
+    font-family: -apple-system;
     /*it is not working*/
     /*height: 200px;*/
 }

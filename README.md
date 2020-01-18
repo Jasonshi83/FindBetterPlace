@@ -1,6 +1,6 @@
-Project Name: Website FindBetterPlace
+#Project Name: Website FindBetterPlace
 
-Project Description and objective: 
+##Project Description and objective: 
 
 This is a website that allows people to share their bad experience in rental housing in the city.  
 

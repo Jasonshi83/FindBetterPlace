@@ -16,7 +16,7 @@
 ## Tech Stack:
 - HTML, CSS, JavaScript, PHP, Bootstrap, Jquery, Google Map API, Goole Could Storage, relational database: Mysql/MariaDB, Apache, ajax/json, Github.
 
-- Hot I build this application and how to use the website:
+## Hot I build this application and how to use the website:
 - The idea of building this website came from my personal experience. The first place I lived after I moved to Wellington gave me a terrible memory because of the house lord is neither honest nor friendly. 
 - After that, this idea came to my mind, if we have a website allows people to share their bad rental experience, that might be helpful for the people who have a plan to move in. 
 
@@ -24,22 +24,26 @@
 
 - Also, the user can see the detail of the case other user shared by clicking the marker on the map.  Each mark has it's address and detail description of the case, and misery index is also listed on it as well. 
 
-I used Bootstrap to build the basic structure of the website. The Bootstrap provides an easy way for the user to use its build-in CSS library by specifying the class name. 
-Javascript code was included in the HTML file. Some PHP code is embedded into JavaScript code used for showing the case list which is from the database.
+- I used Bootstrap to build the basic structure of the website. The Bootstrap provides an easy way for the user to use its build-in CSS library by specifying the class name. 
+- Javascript code was included in the HTML file. Some PHP code is embedded into JavaScript code used for showing the case list which is from the database.
 
-I used Google Cloud Storage for the deployment of the website. 
+- I used Google Cloud Storage for the deployment of the website. 
 
-The website also provides the function that people can access to the page that lists all the cases other user shared. The website also has the function that allows user to share their own experience if they click the "Post Case" on navigator or "Share My Experience" on the header.
+- The website also provides the function that people can access to the page that lists all the cases other user shared. The website also has the function that allows user to share their own experience if they click the "Post Case" on navigator or "Share My Experience" on the header.
 
-The website is responsive according to the size of the screen.
+- The website is responsive according to the size of the screen.
 
-How to test the application:
+## How to test the application:
 The website is tested by printing out the JSON file then compare with the data in the database, to ensure all the code shows on the website matching with database.
 
-Software tools used:
-PHPStorm, DataGrip, WebStorm, Apache HTTP Server.
-Main Page and View All Cases
+## Software tools used:
+- PHPStorm, DataGrip, WebStorm, Apache HTTP Server.
+
+## Main Page and View All Cases
 ![alt text](https://github.com/Jasonshi83/FindBetterPlace/blob/master/Main_ViewAllCases.gif)
 
-Post your own experience:
+## Post your own experience:
 ![alt text](https://github.com/Jasonshi83/FindBetterPlace/blob/master/Share_Own_experience.gif)
+
+## Link to the code:
+- https://github.com/Jasonshi83/FindBetterPlace
